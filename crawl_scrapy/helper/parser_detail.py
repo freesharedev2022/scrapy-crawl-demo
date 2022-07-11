@@ -13,29 +13,6 @@ class ParserDetail:
             result['title'] = response.selector.xpath(config.title).extract_first().strip()
             result['description'] = response.selector.xpath(config.description).extract_first().strip()
             result['content'] = ''.join(response.selector.xpath(config.content).extract()).strip()
-
-            html = result['content']
-            parser = lxml.etree.HTMLParser(encoding='utf-8', recover=True)
-            tree = lxml.etree.parse(io.StringIO(html), parser)
-            for element in tree.xpath('//*'):
-                for attr in element.attrib:
-                    try:
-                        del element.attrib[attr]
-                    except KeyError:
-                        pass
-            content = ''
-            for element in tree.xpath('//body/*'):
-                content += str(lxml.etree.tostring(element, pretty_print=True, xml_declaration=False)).strip()
-
-            content = content.replace("&nbsp;", " ")
-            content = content.replace("&#13;", "\n")
-            content = content.replace("\\n'b'", "")
-            content = content.replace("\\n'", "")
-            content = content.replace("\\n", "")
-            pattern = re.compile(r"\&#\d{4};")
-            content = pattern.sub("", content)
-
-            result['content'] = content
             result['thumbnail'] = response.selector.xpath(config.thumbnail).extract_first().strip()
             result['source'] = response.url
             result['date'] = response.selector.xpath(config.date).extract_first().strip()

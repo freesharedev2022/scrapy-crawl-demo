@@ -3,13 +3,13 @@
 __author__ = 'TranTien'
 
 import configparser
-from scrapy.conf import settings
-
+from scrapy.utils.project import get_project_settings
 
 class LoadConfig:
     def __init__(self, cf_domain=''):
+        settings = get_project_settings()
         parse_cate = configparser.ConfigParser()
-        parse_cate.read(settings.get('PARSER_CONFIG_FILE'), encoding="utf8")
+        parse_cate.read(settings['PARSER_CONFIG_FILE'], encoding="utf8")
         self.parse_cate = parse_cate
         self.cf_domain = cf_domain
         self.title = self.parse_cate.get(self.cf_domain, 'title_select')

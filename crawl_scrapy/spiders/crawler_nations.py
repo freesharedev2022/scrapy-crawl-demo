@@ -2,12 +2,10 @@
 # !/usr/bin/env python
 __author__ = 'TranTien'
 
-
 import scrapy
 from scrapy.http import Request
 from crawl_scrapy.helper.database import Database
 from slugify import slugify
-
 
 class Geographyfieldwork(scrapy.Spider):
     name = 'crawler_nation'
@@ -25,7 +23,7 @@ class Geographyfieldwork(scrapy.Spider):
 
     def parse(self, response):
         try:
-            datas = response.xpath('//*/table[@id="anyid"]/tr')
+            datas = response.xpath('.//table[@id="anyid"]//tr')
             for item in datas[1:]:
                 result = dict()
                 result['name'] = item.xpath('td[@height=17][1]/text()').extract_first()

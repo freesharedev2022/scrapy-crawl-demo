@@ -9,16 +9,17 @@ from crawl_scrapy.helper.init_config import LoadConfig
 from crawl_scrapy.helper.parser_detail import ParserDetail
 
 
-class Theguardian(scrapy.Spider):
-    name = 'theguardian.com'
-    allowed_domain = ['theguardian.com']
+class Vnexpress(scrapy.Spider):
+    name = 'vnexpress'
+    allowed_domain = ['vnexpress.net']
 
     def __init__(self):
-        self.config = LoadConfig('theguardian.com')
+        self.config = LoadConfig('vnexpress.net')
+        print(self.config, "self.config")
 
     def start_requests(self):
         urls = [
-            'https://www.theguardian.com/international'
+            'https://vnexpress.net/'
         ]
         for url in urls:
             yield Request(url, self.parse)
@@ -33,4 +34,5 @@ class Theguardian(scrapy.Spider):
             print('co loi xay ra khi lay link bai viet', e)
 
     def parse_full_post(self, response):
+        pass
         ParserDetail(response, self.config)
