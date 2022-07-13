@@ -23,7 +23,10 @@ class Livescores(scrapy.Spider):
 
     def parse_result(self, response):
         try:
-            post_html = response.selector.xpath(self.config.title).extract_first()
-            print(post_html)
+            print("-------------------------------------------------------------------------")
+            post_titles = response.selector.xpath(self.config.title).extract()
+            for item in post_titles:
+                print(item)
+            print("-------------------------------------------------------------------------")
         except Exception as e:
             print('error :' , e)

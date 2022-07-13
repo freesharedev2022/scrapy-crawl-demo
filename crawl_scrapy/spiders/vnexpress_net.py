@@ -34,5 +34,4 @@ class Vnexpress(scrapy.Spider):
             print('co loi xay ra khi lay link bai viet', e)
 
     def parse_full_post(self, response):
-        pass
         ParserDetail(response, self.config)
